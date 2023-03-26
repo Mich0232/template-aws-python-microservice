@@ -1,0 +1,52 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: 'v1.1.1'
+    hooks:
+      - id: mypy
+        entry: mypy src/
+        pass_filenames: false
+  - repo: https://github.com/pycqa/flake8
+    rev: 6.0.0
+    hooks:
+      - id: flake8
+        alias: python
+        args: [--config, pyproject.toml]
+  - repo: https://github.com/psf/black
+    rev: 23.1.0
+    hooks:
+      - id: black
+        language_version: python3.9
+        alias: python
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        name: isort (python)
+        alias: python
+        args: ["--profile", "black", "--filter-files"]
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: end-of-file-fixer
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.77.1
+    hooks:
+      - id: terraform_fmt
+        alias: terraform
+        files: ^infra/terraform/
+      - id: terraform_validate
+        alias: terraform
+        files: ^infra/terraform/
+      - id: terraform_tflint
+        alias: terraform
+        name: install tflint plugins
+        args:
+          - --args=--init
+          - --args=--config=__GIT_WORKING_DIR__/infra/terraform/.tflint.hcl
+      - id: terraform_tflint
+        alias: terraform
+        files: ^infra/terraform/
+        args:
+          - --args=--config=__GIT_WORKING_DIR__/infra/terraform/.tflint.hcl
