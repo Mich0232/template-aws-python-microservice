@@ -2,6 +2,7 @@ from aws_lambda_powertools import Logger, Metrics, Tracer
 from aws_lambda_powertools.event_handler import APIGatewayHttpResolver
 from aws_lambda_powertools.logging import correlation_paths
 from aws_lambda_powertools.metrics import MetricUnit
+from aws_lambda_powertools.utilities.typing import LambdaContext
 
 logger = Logger(service="ExampleApp")
 tracer = Tracer(service="ExampleApp")
@@ -31,7 +32,7 @@ def hello():
 @logger.inject_lambda_context(
     correlation_id_path=correlation_paths.API_GATEWAY_HTTP, log_event=True
 )
-def lambda_handler(event, context):
+def lambda_handler(event, context: LambdaContext):
     try:
         return app.resolve(event, context)
     except Exception as e:
