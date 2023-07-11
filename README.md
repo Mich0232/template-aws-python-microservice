@@ -1,16 +1,16 @@
-## Template Repository: Python 3.9  + Terraform
+## Template Repository: Python 3.9  + Terraform 1.5.2
 This is a template repository for a Python 3.9 project that includes Terraform infrastructure setup.  
 
 The repository is pre-configured with pre-commit hooks that run black, flake8, mypy, and Terraform linters to ensure code consistency and quality.
 
-The Python source files are located in the `src/service` directory, while the AWS Lambda Python code is in `src/lambdas`.  
+The Python source files are located in the `src` directory.  
 
 The tests created using pytest are located in the tests directory, and the Terraform configuration is in the `infra/terraform` directory.
 
 ### Prerequisites
 
-- python 3.9
-- terraform
+- python 3.9.16
+- terraform 1.5.2
 
 ### Usage
 
@@ -21,8 +21,8 @@ Clone the repository to your local machine.
 Create a virtual environment
 
 ```shell
-python -v venv venv
-source venv/bin/active
+python -v venv .venv
+source .venv/bin/active
 ```
 
 Install dependencies:
@@ -58,6 +58,8 @@ terraform apply
 ```
 
 Run pre-commit for the Terraform configuration
+
+Install tflint: https://github.com/terraform-linters/tflint
 
 ```shell
 pre-commit run -a terraform
