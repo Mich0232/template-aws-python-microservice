@@ -1,5 +1,5 @@
-## Template Repository: Python 3.9  + Terraform 1.5.2
-This is a template repository for a Python 3.9 project that includes Terraform infrastructure setup.  
+## Template Repository: Python 3.9  + Terraform 1.5.2 (AWS)
+This is a template repository for a Python 3.9 project that includes Terraform infrastructure setup on AWS cloud.  
 
 The repository is pre-configured with pre-commit hooks that run black, flake8, mypy, and Terraform linters to ensure code consistency and quality.
 
