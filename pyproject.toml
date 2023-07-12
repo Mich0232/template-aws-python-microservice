@@ -1,6 +1,8 @@
 [tool.isort]
 profile = "black"
 
-[tool.pytest]
-testpaths = "tests"
-addopts = "-v"
+[tool.pytest.ini_options]
+testpaths = [
+  "tests"
+]
+addopts = "-v --cov=src --cov-report term-missing --cov-report html"

@@ -19,6 +19,11 @@ def lambda_context():
     return LambdaContext()
 
 
+@pytest.fixture
+def name():
+    return "john"
+
+
 def test_lambda_handler(lambda_context):
     minimal_event = {
         "rawPath": "/hello",
@@ -38,3 +43,44 @@ def test_lambda_handler(lambda_context):
     ret = app.lambda_handler(minimal_event, lambda_context)
     assert ret["statusCode"] == 200
     assert ret["body"] == '{"message":"hello unknown!"}'
+
+
+def test_hello_name(lambda_context, name):
+    minimal_event = {
+        "rawPath": f"/hello/{name}",
+        "requestContext": {
+            "requestContext": {"requestId": "227b78aa-779d-47d4-a48e-ce62120393b8"},
+            "http": {
+                "method": "GET",
+            },
+            "stage": "$default",
+        },
+    }
+
+    ret = app.lambda_handler(minimal_event, lambda_context)
+    assert ret["statusCode"] == 200
+    assert ret["body"] == f'{{"message":"hello {name}!"}}'
+
+
+def test_404_not_found(lambda_context):
+    minimal_event = {
+        "rawPath": "/nonexistingpath",
+        "requestContext": {
+            "requestContext": {"requestId": "227b78aa-779d-47d4-a48e-ce62120393b8"},
+            "http": {
+                "method": "GET",
+            },
+            "stage": "$default",
+        },
+    }
+
+    ret = app.lambda_handler(minimal_event, lambda_context)
+    assert ret["statusCode"] == 404
+    assert ret["body"] == '{"statusCode":404,"message":"Not found"}'
+
+
+def test_500_exception(lambda_context):
+    minimal_event = {"rawPath": "/partialevent"}
+
+    with pytest.raises(KeyError):
+        app.lambda_handler(minimal_event, lambda_context)

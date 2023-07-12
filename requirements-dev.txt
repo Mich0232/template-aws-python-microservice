@@ -1,4 +1,5 @@
 -r requirements.txt
 aws_lambda_powertools[aws-sdk]==2.19.0
 pre-commit==3.2.1
-pytest==7.2.2
+pytest==7.4.0
+pytest-cov==4.1.0
