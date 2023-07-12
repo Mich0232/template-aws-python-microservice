@@ -3,3 +3,5 @@ aws_lambda_powertools[aws-sdk]==2.19.0
 pre-commit==3.2.1
 pytest==7.4.0
 pytest-cov==4.1.0
+terraform-local==0.11
+awscli-local==0.20

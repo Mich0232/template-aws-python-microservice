@@ -85,3 +85,41 @@ You can also use the -v option to get more detailed output:
 ```shell
 pytest -v
 ```
+
+
+### Local Cloud
+
+You can test your lambda functions by provisioning AWS resources locally using LocalStack. 
+
+> Note: Some of the AWS Resource are only available in Pro (paid) version of LocalStack. Therefore by default only Lambda functions are created
+
+Requirements:
+ - docker
+ - Terraform
+ - Localstack
+
+1. Install LocalStack
+
+Install binary CLI
+```shell
+brew install localstack/tap/localstack-cli
+```
+
+Run LocalStack in Docker
+```shell
+localstack start -d
+```
+
+2. Make sure you have `tflocal` installed
+inside the terraform configuration directory
+`cd infra/terraform`
+
+```shell
+tflocal init
+```
+
+```shell
+tflocal apply
+```
+
+
